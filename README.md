@@ -1,6 +1,12 @@
 # test_Express_js
 # 1. สร้างโฟลเดอร์โปรเจคก่อน ด้วยมือนักศึกษา
 # 2. สร้างไฟล์ package.json (ไฟล์ส าหรับเก็บรายชื่อ Library ที่ใช้)
-npm init -y
+    npm init -y
 # 3. ติดตั้ง Express.js
-npm install express
+    npm i express
+    npm i cors
+# i ย่อมาจาก install
+
+# 4. การรัน index.js
+    node .
+# อิงจาก "main": "index.js" ที่อยู่ใน package.json

@@ -1,11 +1,22 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
 const fs = require("fs");
 // const http = require("http");
 
 const PORT = 3000;
 
+app.use(cors());
 app.use(express.json());
+
+let products = [
+  {id: 1, name: 'Keyboard', price: 2500},
+  {id: 2, name: 'Mouse', price: 1500}
+]
+
+app.get('/products', (req, res) => {
+  res.status(200).json(products);
+})
 
 function render(request, response) {
   let url = request.url;
