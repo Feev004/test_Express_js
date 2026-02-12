@@ -161,11 +161,11 @@
         document.getElementById("cancelBtn").style.display = "none"; // ซ่อนปุ่ม ยกเลิก
       }
 
-      async function updateProduct(id, name, price) {
+      async function prepareEdit(id, name, price) {
         if (confirm("คุณแน่ใจหรือไม่ ว่าต้องการแก้ไขข้อมูลนี้?")) {
           try {
             const response = await fetch(`${apiURL}/${id}`, {
-              method: "PUT",
+              method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ name, price }),
             });

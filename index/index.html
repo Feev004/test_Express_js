@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background-color: #f5f5f5;
+                padding: 20px;
+            }
+
+            h1 {
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+
+            table {
+                width: 100%;
+                max-width: 600px;
+                margin: 0 auto;
+                border-collapse: collapse;
+                background-color: white;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            thead {
+                background-color: #2c3e50;
+                color: white;
+            }
+
+            th {
+                padding: 12px;
+                text-align: left;
+                font-weight: 600;
+            }
+
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #eee;
+            }
+
+            tbody tr:hover {
+                background-color: #f9f9f9;
+            }
+
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>รายการสินค้าทั้งหมด</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ชื่อสินค้า</th>
+                    <th style="text-align: right;">ราคา (บาท)</th>
+                </tr>
+            </thead>
+            <tbody id="product-table-body">
+                <tr>
+                    <td colspan="3" align="center">กําลังโหลดข้อมูล...</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <script>
+            async function fetchProducts() {
+                try {
+                    const response = await fetch("http://localhost:3000/products");
+                    const products = await response.json();
+                    renderTable(products);
+                } catch (error) {
+                    console.error("Error:", error);
+                    const tbody = document.getElementById("product-table-body");
+                    tbody.innerHTML =
+                        '<tr><td colspan="3" align="center" style="color:red;">ไม่สามารถเชื่อมต่อกับ Server ได้</td></tr>';
+                }
+            }
+
+            function renderTable(products) {
+                const tbody = document.getElementById("product-table-body");
+                tbody.innerHTML = "";
+                products.forEach((item) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td align="center">${item.id}</td>
+                        <td>${item.name}</td>
+                        <td align="right">${item.price}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            fetchProducts();
+        </script>
+    </body>
+</html>
